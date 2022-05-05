@@ -6,6 +6,7 @@ import pytest
 from qbittorrentapi import Client
 from qbittorrentapi.decorators import (
     handle_hashes,
+    response_bytes,
     response_json,
     response_text,
 )
@@ -80,6 +81,19 @@ def test_response_text():
     assert input == ResponseTextTest().return_input_as_str(input)
     with pytest.raises(APIError):
         ResponseTextTest().return_input_as_dict(input)
+
+
+def test_response_bytes():
+    class Response:
+        def __init__(self, text):
+            self.content = text
+
+    @response_bytes
+    def return_input_as_bytes(text):
+        return Response(text)
+
+    input = "asdf"
+    assert input == return_input_as_bytes(input)
 
 
 def test_response_json():

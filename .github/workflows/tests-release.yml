@@ -17,8 +17,8 @@ env:
   LATEST_PYTHON_VER: "3.10"
   PYTHON_VERSIONS: '[ "3.10", "3.9", "3.8", "3.7", "2.7", "pypy-3.8", "3.11-dev" ]'
   SUBMIT_COVERAGE_VERSIONS: 2.7, 3.10
-  LATEST_QBT_VER: 4.4.2  # sync this with tests-extended matrix exclude and smoke test name...
-  QBT_VERS: '[ "4.4.2", "4.4.1", "4.4.0", "4.3.9", "4.3.8", "4.3.7", "4.3.6", "4.3.5", "4.3.4.1", "4.3.3", "4.3.2", "4.3.1", "4.3.0.1" ]'
+  LATEST_QBT_VER: 4.4.3  # sync this with tests-extended matrix exclude and smoke test name...
+  QBT_VERS: '[ "4.4.3", "4.4.1", "4.4.0", "4.3.9", "4.3.8", "4.3.7", "4.3.6", "4.3.5", "4.3.4.1", "4.3.3", "4.3.2", "4.3.1", "4.3.0.1" ]'
   QBT_LEGACY_VERS: '[ "4.2.5", "4.2.0" ]'
   QBT_ALWAYS_TEST: 4.4.1, 4.4.0, 4.3.9, 4.3.8, 4.3.6, 4.3.4.1, 4.3.3, 4.3.2, 4.2.5, 4.2.0
   QT_USE_DEFAULT_PAA: 4.3.9, 4.3.8, 4.3.7, 4.3.6, 4.3.5, 4.3.4.1, 4.3.3, 4.3.2, 4.3.1, 4.3.0.1
@@ -90,7 +90,7 @@ jobs:
     #######
     # Run tests against most recent qBittorrent release and all Python releases
     #######
-    name: "Release Smoke Test 3.10 - v4.4.2"
+    name: "Release Smoke Test 3.10 - v4.4.3"
     needs: verify
     runs-on: ubuntu-20.04  # update Qt PPA when moving beyond 20.04
     steps:
@@ -212,8 +212,8 @@ jobs:
         QBT_VER: ${{ fromJson(needs.verify.outputs.qbittorrent-versions) }}
         python-version: ${{ fromJson(needs.verify.outputs.python-versions) }}
         exclude:
-          - QBT_VER: 4.4.2
-            python-version: "3.10"
+          - QBT_VER: 4.4.3  # sync with LATEST_QBT_VER
+            python-version: "3.10"  # sync with LATEST_PYTHON_VER
     # TODO: each step currently has an over-complicated conditional to prevent always running all tests.
     # TODO: this can be removed once the matrix supports conditions
     steps:
